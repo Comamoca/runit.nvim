@@ -37,6 +37,42 @@ NeoVimで以下のコマンドを実行してください。
 ```
 :RunIt
 ```
+### 設定
+
+`setup()`内に、拡張子と実行するコマンドをテーブルにして指定してください。 以下はサンプルです。
+
+
+```lua
+local function isNodejs()
+	local packagejson = "package.json"
+
+	if vim.fn.findfile(packagejson, "./") == packagejson then
+		return true
+	else
+		return false
+	end
+end
+
+require("runit").setup({
+	js = function(file)
+		if isNodejs() then
+			return "node" .. file
+		else
+			return "deno run -A " .. file
+		end
+	end,
+	ts = function(file)
+		return "deno run -A " .. file
+	end,
+	mjs = function()
+		return "node" .. file
+	end,
+	py = function(file)
+		return "python" .. file
+	end,
+})
+```
+
 ## ⬇️  Install
 
 - dein.vim

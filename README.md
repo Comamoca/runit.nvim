@@ -39,6 +39,41 @@ To run the following command on NeoVim.
 :RunIt
 ```
 
+### Settings
+
+In `setup()`, specify a table of extensions and commands to run. Below is a sample.
+
+```lua
+local function isNodejs()
+	local packagejson = "package.json"
+
+	if vim.fn.findfile(packagejson, "./") == packagejson then
+		return true
+	else
+		return false
+	end
+end
+
+require("runit").setup({
+	js = function(file)
+		if isNodejs() then
+			return "node" .. file
+		else
+			return "deno run -A " .. file
+		end
+	end,
+	ts = function(file)
+		return "deno run -A " .. file
+	end,
+	mjs = function()
+		return "node" .. file
+	end,
+	py = function(file)
+		return "python" .. file
+	end,
+})
+```
+
 ## ⬇️  Install
 
 - dein.vim
