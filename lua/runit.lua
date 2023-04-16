@@ -3,14 +3,18 @@ local function matcher(ext, executors)
 	return executors[ext](current_file)
 end
 
-local function runit(executors)
+local function runit(executors, terminal)
+	if terminal == nil then
+		terminal = "terminal"
+	end
+
 	vim.cmd(":vsplit")
-	vim.cmd(":terminal " .. matcher(vim.fn.expand("%:e"), executors))
+	vim.cmd(": " .. terminal .. " " .. matcher(vim.fn.expand("%:e"), executors))
 end
 
-local function setup(executors)
+local function setup(terminal, executors)
 	vim.api.nvim_create_user_command("RunIt", function()
-		runit(executors)
+		runit(terminal, executors)
 	end, {})
 end
 
