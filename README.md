@@ -74,6 +74,21 @@ require("runit").setup({
 })
 ```
 
+### Custom terminal
+
+You can customize to use other terminal on runit.
+
+```lua
+require("runit").setup({
+	mjs = function()
+		return "node" .. file
+	end,
+	py = function(file)
+		return "python" .. file
+	end,
+}, "Deol")
+```
+
 ## ⬇️  Install
 
 - dein.vim

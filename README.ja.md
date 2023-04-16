@@ -73,6 +73,21 @@ require("runit").setup({
 })
 ```
 
+### カスタムターミナル
+
+runit で他のターミナルプラグインを使用するようにカスタマイズできます。
+
+```lua
+require("runit").setup({
+	mjs = function()
+		return "node" .. file
+	end,
+	py = function(file)
+		return "python" .. file
+	end,
+}, "Deol")
+```
+
 ## ⬇️  Install
 
 - dein.vim
