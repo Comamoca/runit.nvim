@@ -1,5 +1,5 @@
 local function matcher(ext, executors)
-	local current_file = " " .. vim.fn.expand("%:t")
+	local current_file = " " .. vim.fn.expand("%:p")
 	return executors[ext](current_file)
 end
 
